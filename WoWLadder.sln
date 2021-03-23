@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoWLadder", "WoWLadder.csproj", "{674E1724-C9F9-48B5-97CB-396A2598F0A7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{674E1724-C9F9-48B5-97CB-396A2598F0A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{674E1724-C9F9-48B5-97CB-396A2598F0A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{674E1724-C9F9-48B5-97CB-396A2598F0A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{674E1724-C9F9-48B5-97CB-396A2598F0A7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BEBCD561-A104-401D-8A7D-49F1DBC4B056}
+	EndGlobalSection
+EndGlobal
