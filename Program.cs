@@ -12,8 +12,23 @@ namespace WoWLadder
     {
         static void Main(string[] args)
         {
-            Console.Write("hello world");
-            Thread.Sleep(5000);
+            string FolderPath = args[0];
+            DirectoryInfo AdtFiles = new DirectoryInfo(FolderPath);
+            if (args.Length == 0)
+                return;
+            else
+            { 
+                foreach (var file in AdtFiles.GetFiles( "*.adt"))
+                {
+                    Console.WriteLine(file.Name + Environment.NewLine);
+                    
+
+                }
+                Thread.Sleep(50000);
+            }
+           
+
+
 
         }
     }
