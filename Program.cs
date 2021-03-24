@@ -17,13 +17,28 @@ namespace WoWLadder
             if (args.Length == 0)
                 return;
             else
-            { 
-                foreach (var file in AdtFiles.GetFiles( "*.adt"))
-                {
-                    Console.WriteLine(file.Name + Environment.NewLine);
-                    
+            {
 
-                }
+                foreach (var file in AdtFiles.GetFiles("*.adt"))
+                    if (file.Name.Contains("_tex"))
+                    {
+
+
+                        Console.WriteLine("Found _tex " + file.Name + Environment.NewLine);
+                    
+                       
+                    }
+                    else
+                    if (file.Name.Contains("_obj"))
+                    {
+                        Console.WriteLine(file.Name + "obj file found" +  Environment.NewLine);
+
+
+                    }
+                else
+                    {
+                        Console.WriteLine("Normal .adt file found" + file.Name + Environment.NewLine);
+                    }
                 Thread.Sleep(50000);
             }
            
