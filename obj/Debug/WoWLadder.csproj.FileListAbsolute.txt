@@ -4,4 +4,3 @@ C:\Users\Tim\Desktop\Repos\wowladder01\WoWLadder\bin\Debug\WoWLadder.pdb
 C:\Users\Tim\Desktop\Repos\wowladder01\WoWLadder\obj\Debug\WoWLadder.csproj.CoreCompileInputs.cache
 C:\Users\Tim\Desktop\Repos\wowladder01\WoWLadder\obj\Debug\WoWLadder.exe
 C:\Users\Tim\Desktop\Repos\wowladder01\WoWLadder\obj\Debug\WoWLadder.pdb
-C:\Users\Tim\Desktop\Repos\wowladder01\WoWLadder\obj\Debug\WoWLadder.csprojAssemblyReference.cache

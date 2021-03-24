@@ -38,7 +38,10 @@ namespace WoWLadder
                         else
                         if (file.Contains("_obj1"))
                         {
+                          
                             Console.WriteLine("obj1 file found, processing." + file + Environment.NewLine);
+                            int idk = 0;
+                            int l = 0;
                             //    int counter_modf = 0;
                             // int counter_read_float_modf = 0;
 
@@ -54,19 +57,25 @@ namespace WoWLadder
 
                                 if (magic == 1297040454)
                                 {
-                                    Console.WriteLine("MODF");
-                                    var nameID = obj1reader.ReadUInt32();
-                                    var uniqueID = obj1reader.ReadUInt32();
-                                    var posx = obj1reader.ReadSingle();
-                                    var posy = obj1reader.ReadSingle();
-                                    var posz = obj1reader.ReadSingle();
-                                    File.AppendAllText(@"debugpos.txt", posx.ToString() +" " + posy.ToString() + " "  + posz.ToString() + Environment.NewLine);
+                                    while (obj1reader.BaseStream.Position < pos + size)
 
+                                    {
+
+                                        Console.WriteLine("MODF");
+                                        var nameID = obj1reader.ReadUInt32();
+                                        var uniqueID = obj1reader.ReadUInt32();
+                                        var posx = obj1reader.ReadSingle();
+                                        var posy = obj1reader.ReadSingle();
+                                        var posz = obj1reader.ReadSingle();
+                                        File.AppendAllText(@"debugpos.txt", file.ToString() + posx.ToString() + " " + posy.ToString() + " " + posz.ToString() + Environment.NewLine);
+                                    }
+                                
                                 }
                                 obj1reader.BaseStream.Position = pos + size;
+                             
+
                             }
                            
-
                         }
 
                         else
