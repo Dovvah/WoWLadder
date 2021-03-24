@@ -36,10 +36,28 @@ namespace WoWLadder
                         using (Stream obj1stream = File.Open(file, FileMode.Open, FileAccess.ReadWrite)) 
                             using (BinaryReader obj1reader = new BinaryReader(obj1stream))
                             using (BinaryWriter obj1writer = new BinaryWriter(obj1stream))
+                           
                         {
+                            Thread.Sleep(50000);
+                            //    int counter_modf = 0;
+                            // int counter_read_float_modf = 0;
+                            while (obj1reader.BaseStream.Position != obj1reader.BaseStream.Length)
+                            {
+                                // 1297040454 modf
+                                var magic = obj1reader.ReadUInt32();
+                                var size = obj1reader.ReadUInt32();
+                                var pos = obj1reader.BaseStream.Position;
 
+                                if (magic == 1717858157)
+                                {
+                                    Console.WriteLine("found modf");
+                                    Thread.Sleep(50000);
+                                    }
+                                }
+
+                            }
                         }
-                    }
+                    
                     else
                     {
                         Console.WriteLine("Normal .adt file found" + file + Environment.NewLine);
