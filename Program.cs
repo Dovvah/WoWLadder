@@ -66,8 +66,11 @@ namespace WoWLadder
                                         var uniqueID = obj1reader.ReadUInt32();
                                         var posx = obj1reader.ReadSingle();
                                         var posy = obj1reader.ReadSingle();
+                                        var new_wmo_height = posy + 100;
+                                        obj1stream.Position -= 4;
+                                        obj1writer.Write(new_wmo_height);
                                         var posz = obj1reader.ReadSingle();
-                                        File.AppendAllText(@"debugpos.txt", file.ToString() + posx.ToString() + " " + posy.ToString() + " " + posz.ToString() + Environment.NewLine);
+                                       // File.AppendAllText(@"debugpos.txt", file.ToString() + posx.ToString() + " " + posy.ToString() + " " + posz.ToString() + Environment.NewLine);
                                     }
                                 
                                 }
