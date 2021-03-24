@@ -55,6 +55,13 @@ namespace WoWLadder
                                 if (magic == 1297040454)
                                 {
                                     Console.WriteLine("MODF");
+                                    var nameID = obj1reader.ReadUInt32();
+                                    var uniqueID = obj1reader.ReadUInt32();
+                                    var posx = obj1reader.ReadSingle();
+                                    var posy = obj1reader.ReadSingle();
+                                    var posz = obj1reader.ReadSingle();
+                                    File.AppendAllText(@"debugpos.txt", posx.ToString() +" " + posy.ToString() + " "  + posz.ToString() + Environment.NewLine);
+
                                 }
                                 obj1reader.BaseStream.Position = pos + size;
                             }
