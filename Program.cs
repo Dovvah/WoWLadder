@@ -20,54 +20,60 @@ namespace WoWLadder
             {
 
                 foreach (var file in AdtFiles)
-                    if (file.Contains("_tex"))
+
+                {
+                    using (Stream obj1stream = File.Open(file, FileMode.Open, FileAccess.ReadWrite))
+                    using (BinaryReader obj1reader = new BinaryReader(obj1stream))
+                    using (BinaryWriter obj1writer = new BinaryWriter(obj1stream))
                     {
-                        Console.WriteLine("tex file found, ignoring" + file + Environment.NewLine);
-                    }
-                    else
-                    if (file.Contains("_obj0"))
-                    {
-                        Console.WriteLine("obj0 file found, ignoring" + file + Environment.NewLine);
-                    }
-                    else
-                    if (file.Contains("_obj1"))
-                    {
-                        Console.WriteLine("obj0 file found, processing." + file + Environment.NewLine);
-                        using (Stream obj1stream = File.Open(file, FileMode.Open, FileAccess.ReadWrite)) 
-                            using (BinaryReader obj1reader = new BinaryReader(obj1stream))
-                            using (BinaryWriter obj1writer = new BinaryWriter(obj1stream))
-                           
+                        if (file.Contains("_tex"))
                         {
-                            Thread.Sleep(50000);
+                            Console.WriteLine("tex file found, ignoring" + file + Environment.NewLine);
+                        }
+                        else
+                        if (file.Contains("_obj0"))
+                        {
+                            Console.WriteLine("obj0 file found, ignoring" + file + Environment.NewLine);
+                        }
+                        else
+                        if (file.Contains("_obj1"))
+                        {
+                            Console.WriteLine("obj1 file found, processing." + file + Environment.NewLine);
                             //    int counter_modf = 0;
                             // int counter_read_float_modf = 0;
+
+
                             while (obj1reader.BaseStream.Position != obj1reader.BaseStream.Length)
                             {
+                                // Console.WriteLine("debug");
                                 // 1297040454 modf
+
                                 var magic = obj1reader.ReadUInt32();
                                 var size = obj1reader.ReadUInt32();
                                 var pos = obj1reader.BaseStream.Position;
 
-                                if (magic == 1717858157)
+                                if (magic == 1297040454)
                                 {
-                                    Console.WriteLine("found modf");
-                                    Thread.Sleep(50000);
-                                    }
+                                    Console.WriteLine("MODF");
                                 }
-
+                                obj1reader.BaseStream.Position = pos + size;
                             }
+                           
+
                         }
-                    
-                    else
-                    {
-                        Console.WriteLine("Normal .adt file found" + file + Environment.NewLine);
+
+                        else
+                        {
+                            Console.WriteLine("Normal .adt file found" + file + Environment.NewLine);
+                        }
+
                     }
-                Thread.Sleep(50000);
+
+
+                }
+                Console.WriteLine("Done");
+                Thread.Sleep(5000);
             }
-           
-
-
-
         }
     }
 }
