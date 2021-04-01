@@ -39,22 +39,57 @@ namespace WoWLadder
                         if (file.Contains("_obj1"))
                         {
                             bool modf_seen = false;
+                            bool mddf_seen = false;
+
                             int counter_mcvt = 0;
                             int counter_read_float = 0;
                             Console.WriteLine("obj1 file found, processing." + file + Environment.NewLine);
-                            
-                          
+
+
 
 
                             while (obj1reader.BaseStream.Position != obj1reader.BaseStream.Length)
                             {
-                                // Console.WriteLine("debug");
+                           
                                 // 1297040454 modf
 
                                 var magic = obj1reader.ReadUInt32();
+
                                 var size = obj1reader.ReadUInt32();
                                 var pos = obj1reader.BaseStream.Position;
 
+                                if (magic == 1835295846)
+                                {
+                                    while (obj1reader.BaseStream.Position < pos + size)
+                                    {
+                                        Console.WriteLine("MDDF = TRUE");
+                                        mddf_seen = true;
+                                        var mddf_nameid = obj1reader.ReadUInt32();
+                                        var mddf_uniqueid = obj1reader.ReadUInt32();
+                                        float mddf_pos_x = obj1reader.ReadSingle();
+                                        var mddf_pos_y = obj1reader.ReadSingle();
+                                        var new_m2_height = mddf_pos_y + 1800;
+                                        obj1stream.Position -= 4;
+                                        obj1writer.Write(new_m2_height);
+                                        float mddf_pos_z = obj1reader.ReadSingle();
+                                        float mddf_rotationx = obj1reader.ReadSingle();
+                                        float mddf_rotationy = obj1reader.ReadSingle();
+                                        float mddf_rotationz = obj1reader.ReadSingle();
+                                        var scale = obj1reader.ReadUInt16();
+                                        var flags = obj1reader.ReadUInt16();
+
+                                    }
+                                    if (mddf_seen == false)
+                                    {
+                                        Console.WriteLine("No m2s on this file.");
+                                    }
+
+                                }
+                                
+
+
+                           
+                                else
                                 if (magic == 1297040454)
                                 {
                                     while (obj1reader.BaseStream.Position < pos + size)
@@ -87,6 +122,7 @@ namespace WoWLadder
                                         var nameset = obj1reader.ReadUInt16();
                                         var scale = obj1reader.ReadUInt16();
                                         File.AppendAllText(@"debugpos.txt", file.ToString() +" " + posx.ToString() + " " + posy.ToString() + " " + posz.ToString() + " " + new_wmo_height + Environment.NewLine);
+                                        
                                     }
                                 if(modf_seen == false)
                                     {
@@ -102,7 +138,7 @@ namespace WoWLadder
 
                         else
                         {
-                           // Console.WriteLine("Normal .adt file found" + file + Environment.NewLine);
+                            Console.WriteLine("Normal .adt file found" + file + Environment.NewLine);
                         }
 
                     }
