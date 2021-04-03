@@ -58,7 +58,7 @@ namespace WoWLadder
                                 var size = obj1reader.ReadUInt32();
                                 var pos = obj1reader.BaseStream.Position;
 
-                                if (magic == 1835295846)
+                                if (magic == 1296319558)
                                 {
                                     while (obj1reader.BaseStream.Position < pos + size)
                                     {
