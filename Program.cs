@@ -28,12 +28,12 @@ namespace WoWLadder
                     {
                         if (file.Contains("_tex"))
                         {
-                          //  Console.WriteLine("tex file found, ignoring" + file + Environment.NewLine);
+                            //  Console.WriteLine("tex file found, ignoring" + file + Environment.NewLine);
                         }
                         else
                         if (file.Contains("_obj0"))
                         {
-                        //    Console.WriteLine("obj0 file found, ignoring" + file + Environment.NewLine);
+                            //    Console.WriteLine("obj0 file found, ignoring" + file + Environment.NewLine);
                         }
                         else
                         if (file.Contains("_obj1"))
@@ -41,7 +41,7 @@ namespace WoWLadder
                             bool modf_seen = false;
                             bool mddf_seen = false;
 
-                            int counter_mcvt = 0;
+
                             int counter_read_float = 0;
                             Console.WriteLine("obj1 file found, processing." + file + Environment.NewLine);
 
@@ -50,7 +50,7 @@ namespace WoWLadder
 
                             while (obj1reader.BaseStream.Position != obj1reader.BaseStream.Length)
                             {
-                           
+
                                 // 1297040454 modf
 
                                 var magic = obj1reader.ReadUInt32();
@@ -85,10 +85,10 @@ namespace WoWLadder
                                     }
 
                                 }
-                                
 
 
-                           
+
+
                                 else
                                 if (magic == 1297040454)
                                 {
@@ -103,8 +103,8 @@ namespace WoWLadder
                                         var uniqueID = obj1reader.ReadUInt32();
                                         float posx = obj1reader.ReadSingle();
                                         var posy = obj1reader.ReadSingle();
-                                        
-                                        var new_wmo_height = posy + 1800;                                       
+
+                                        var new_wmo_height = posy + 1800;
                                         obj1stream.Position -= 4;
                                         obj1writer.Write(new_wmo_height);
                                         float posz = obj1reader.ReadSingle();
@@ -121,29 +121,57 @@ namespace WoWLadder
                                         var doodadset = obj1reader.ReadUInt16();
                                         var nameset = obj1reader.ReadUInt16();
                                         var scale = obj1reader.ReadUInt16();
-                                        File.AppendAllText(@"debugpos.txt", file.ToString() +" " + posx.ToString() + " " + posy.ToString() + " " + posz.ToString() + " " + new_wmo_height + Environment.NewLine);
-                                        
+                                        File.AppendAllText(@"debugpos.txt", file.ToString() + " " + posx.ToString() + " " + posy.ToString() + " " + posz.ToString() + " " + new_wmo_height + Environment.NewLine);
+
                                     }
-                                if(modf_seen == false)
+                                    if (modf_seen == false)
                                     {
                                         Console.WriteLine("No wmos on this file.");
                                     }
                                 }
                                 obj1reader.BaseStream.Position = pos + size;
-                             
+
 
                             }
-                           
+
                         }
 
                         else
                         {
                             Console.WriteLine("Normal .adt file found" + file + Environment.NewLine);
+                            while (obj1reader.BaseStream.Position != obj1reader.BaseStream.Length)
+                            {
+                                var magic = obj1reader.ReadUInt32();
+                                var size = obj1reader.ReadUInt32();
+                                var pos = obj1reader.BaseStream.Position;
+
+                                if (magic == 1296258644)
+
+                                {
+
+
+                                    for (int i = 0; i < 145; i++)
+                                    {
+
+
+
+                                        var height = obj1reader.ReadSingle();
+                                        File.AppendAllText(@"debug.txt", height + " " + magic + Environment.NewLine);
+                                        var newvalue = height + 1800;
+                                        obj1stream.Position -= 4;
+                                        obj1writer.Write(newvalue);
+
+
+
+                                    }
+                                    obj1reader.BaseStream.Position = pos + size;
+                                }
+
+
+                            }
+
                         }
-
                     }
-
-
                 }
                 Console.WriteLine("Done");
                 Console.ReadKey();
