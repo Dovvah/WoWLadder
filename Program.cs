@@ -13,6 +13,7 @@ namespace WoWLadder
         static void Main(string[] args)
         {
             string FolderPath = args[0];
+            //string FolderPath = "C:\\Users\\Tim\\Desktop\\Desktop\\6.0.1.18125 casc explorer\\World\\Maps\\AbyssalMaw - Copy (4)";
             string[] AdtFiles = Directory.GetFiles(FolderPath);
             if (args.Length == 0)
                 return;
@@ -26,7 +27,17 @@ namespace WoWLadder
                     using (BinaryReader obj1reader = new BinaryReader(obj1stream))
                     using (BinaryWriter obj1writer = new BinaryWriter(obj1stream))
                     {
-                        if (file.Contains("_tex"))
+                        if (file.Contains(".wdl"))
+                        {
+
+                        }
+                        else
+                        if (file.Contains(".wdt"))
+                        {
+
+                        }
+                        else
+                        if (file.Contains("tex"))
                         {
                             //  Console.WriteLine("tex file found, ignoring" + file + Environment.NewLine);
                         }
@@ -68,7 +79,7 @@ namespace WoWLadder
                                         var mddf_uniqueid = obj1reader.ReadUInt32();
                                         float mddf_pos_x = obj1reader.ReadSingle();
                                         var mddf_pos_y = obj1reader.ReadSingle();
-                                        var new_m2_height = mddf_pos_y + 1800;
+                                        var new_m2_height = mddf_pos_y + 4000;
                                         obj1stream.Position -= 4;
                                         obj1writer.Write(new_m2_height);
                                         float mddf_pos_z = obj1reader.ReadSingle();
@@ -104,7 +115,7 @@ namespace WoWLadder
                                         float posx = obj1reader.ReadSingle();
                                         var posy = obj1reader.ReadSingle();
 
-                                        var new_wmo_height = posy + 1800;
+                                        var new_wmo_height = posy + 4000;
                                         obj1stream.Position -= 4;
                                         obj1writer.Write(new_wmo_height);
                                         float posz = obj1reader.ReadSingle();
@@ -136,42 +147,52 @@ namespace WoWLadder
 
                         }
 
+
                         else
                         {
                             Console.WriteLine("Normal .adt file found" + file + Environment.NewLine);
+
                             while (obj1reader.BaseStream.Position != obj1reader.BaseStream.Length)
                             {
                                 var magic = obj1reader.ReadUInt32();
                                 var size = obj1reader.ReadUInt32();
                                 var pos = obj1reader.BaseStream.Position;
-
-                                if (magic == 1296258644)
-
+                                if (magic == 1296256587)
                                 {
+                                    while (obj1reader.BaseStream.Position < pos + size)
 
-
-                                    for (int i = 0; i < 145; i++)
                                     {
-
-
-
-                                        var height = obj1reader.ReadSingle();
-                                        File.AppendAllText(@"debug.txt", height + " " + magic + Environment.NewLine);
-                                        var newvalue = height + 1800;
-                                        obj1stream.Position -= 4;
-                                        obj1writer.Write(newvalue);
-
-
+                                        Console.WriteLine("----> mcnk");
+                                        var flags = obj1reader.ReadUInt32();
+                                        var indX = obj1reader.ReadUInt32();
+                                        var indY = obj1reader.ReadUInt32();
+                                        Console.WriteLine(flags + " / " + indX + " / " + indY);
+                                        obj1reader.BaseStream.Position += 116;
 
                                     }
-                                    obj1reader.BaseStream.Position = pos + size;
+                                    var magic2 = obj1reader.ReadUInt32();
+
+                                    if (magic2 == 1296258644)
+
+                                    {
+                                        for (int i = 0; i < 145; i++)
+                                        {
+                                            var height = obj1reader.ReadSingle();
+                                            File.AppendAllText(@"debug.txt", i + " " + magic + Environment.NewLine);
+                                            var newvalue = height + 4000;
+                                            obj1stream.Position -= 4;
+                                            obj1writer.Write(newvalue);
+                                        }
+                                    }
+                                   
+
                                 }
-
-
+                                obj1reader.BaseStream.Position = pos + size;
                             }
 
                         }
                     }
+                    
                 }
                 Console.WriteLine("Done");
                 Console.ReadKey();
