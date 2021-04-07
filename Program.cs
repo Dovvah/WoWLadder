@@ -172,9 +172,16 @@ namespace WoWLadder
                                         }
 
 
+                                    
+                                }
+                                else if (magic ==0x4D434E4B)
+                                {
+                                    obj1reader.BaseStream.Position = pos + 0x80;
+                                }
+                               else
+                                {
                                     obj1reader.BaseStream.Position = pos + size;
                                 }
-                               
                             }
 
                         }
