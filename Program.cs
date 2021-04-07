@@ -157,24 +157,11 @@ namespace WoWLadder
                                 var magic = obj1reader.ReadUInt32();
                                 var size = obj1reader.ReadUInt32();
                                 var pos = obj1reader.BaseStream.Position;
-                                if (magic == 1296256587)
+                                if (magic == 1296258644)
                                 {
-                                    while (obj1reader.BaseStream.Position < pos + size)
+                                   
 
-                                    {
-                                        Console.WriteLine("----> mcnk");
-                                        var flags = obj1reader.ReadUInt32();
-                                        var indX = obj1reader.ReadUInt32();
-                                        var indY = obj1reader.ReadUInt32();
-                                        Console.WriteLine(flags + " / " + indX + " / " + indY);
-                                        obj1reader.BaseStream.Position += 116;
-
-                                    }
-                                    var magic2 = obj1reader.ReadUInt32();
-
-                                    if (magic2 == 1296258644)
-
-                                    {
+                                    
                                         for (int i = 0; i < 145; i++)
                                         {
                                             var height = obj1reader.ReadSingle();
@@ -183,11 +170,11 @@ namespace WoWLadder
                                             obj1stream.Position -= 4;
                                             obj1writer.Write(newvalue);
                                         }
-                                    }
-                                   
 
+
+                                    obj1reader.BaseStream.Position = pos + size;
                                 }
-                                obj1reader.BaseStream.Position = pos + size;
+                               
                             }
 
                         }
