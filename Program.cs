@@ -19,8 +19,12 @@ namespace WoWLadder
                 return;
             else
             {
-
+                string value;
+                Console.WriteLine("How much to raise map by?");
+                value = Console.ReadLine();
+                int value2 = Convert.ToInt32(value);
                 foreach (var file in AdtFiles)
+                    
 
                 {
                     using (Stream obj1stream = File.Open(file, FileMode.Open, FileAccess.ReadWrite))
@@ -74,7 +78,7 @@ namespace WoWLadder
                                         var mddf_uniqueid = obj1reader.ReadUInt32();
                                         float mddf_pos_x = obj1reader.ReadSingle();
                                         var mddf_pos_y = obj1reader.ReadSingle();
-                                        var new_m2_height = mddf_pos_y + 4000;
+                                        var new_m2_height = mddf_pos_y + value2;
                                         obj1stream.Position -= 4;
                                         obj1writer.Write(new_m2_height);
                                         float mddf_pos_z = obj1reader.ReadSingle();
@@ -111,7 +115,7 @@ namespace WoWLadder
                                         float posx = obj1reader.ReadSingle();
                                         var posy = obj1reader.ReadSingle();
 
-                                        var new_wmo_height = posy + 4000;
+                                        var new_wmo_height = posy + value2;
                                         obj1stream.Position -= 4;
                                         obj1writer.Write(new_wmo_height);
                                         float posz = obj1reader.ReadSingle();
@@ -174,7 +178,7 @@ namespace WoWLadder
                                         var mddf_uniqueid = obj1reader.ReadUInt32();
                                         float mddf_pos_x = obj1reader.ReadSingle();
                                         var mddf_pos_y = obj1reader.ReadSingle();
-                                        var new_m2_height = mddf_pos_y + 4000;
+                                        var new_m2_height = mddf_pos_y + value2;
                                         obj1stream.Position -= 4;
                                         obj1writer.Write(new_m2_height);
                                         float mddf_pos_z = obj1reader.ReadSingle();
@@ -211,7 +215,7 @@ namespace WoWLadder
                                         float posx = obj1reader.ReadSingle();
                                         var posy = obj1reader.ReadSingle();
 
-                                        var new_wmo_height = posy + 4000;
+                                        var new_wmo_height = posy + value2;
                                         obj1stream.Position -= 4;
                                         obj1writer.Write(new_wmo_height);
                                         float posz = obj1reader.ReadSingle();
@@ -264,7 +268,7 @@ namespace WoWLadder
                                     {
                                         var height = obj1reader.ReadSingle();
                                         File.AppendAllText(@"debug.txt", i + " " + magic + Environment.NewLine);
-                                        var newvalue = height + 4000;
+                                        var newvalue = height + value2;
                                         obj1stream.Position -= 4;
                                         obj1writer.Write(newvalue);
                                     }
