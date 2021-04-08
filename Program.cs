@@ -92,6 +92,7 @@ namespace WoWLadder
                                     }
                                     if (mddf_seen == false)
                                     {
+                                        File.AppendAllText(@"missing_wmo.txt", "no m2s found on " + file + Environment.NewLine);
                                         Console.WriteLine("No m2s on this file.");
                                     }
 
@@ -137,7 +138,9 @@ namespace WoWLadder
                                     }
                                     if (modf_seen == false)
                                     {
+                                        File.AppendAllText(@"missing_wmo.txt", "no wmos found on " + file + Environment.NewLine);
                                         Console.WriteLine("No wmos on this file.");
+                                       
                                     }
                                 }
                                 obj1reader.BaseStream.Position = pos + size;
